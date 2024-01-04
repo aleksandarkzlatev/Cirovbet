@@ -1,1 +1,1 @@
-# Cirovbet
+This is a school project about a simple template for a CS skins marketplace. The goal for this project is for the users to be able to create accoutns via google or steam and add skins to their accounts(most likely wont be real CS skins), that they can sell or trade with other users. All skins that are available for purchase will be displayed to all users.
