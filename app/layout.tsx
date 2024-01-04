@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import NavBar from '@/components/Navbar'
+import { cn } from '@nextui-org/react'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,10 +17,17 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
+    <html lang='en' className={cn(
+      'antialiased dark',
+      inter.className
+    )}>
+
+    <body className='min-h-screen antialiased'>
+
         <NavBar />
+
         {children}
+
         </body>
     </html>
   )

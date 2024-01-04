@@ -1,37 +1,25 @@
 import React from "react";
-import {Navbar, NavbarBrand, NavbarContent, NavbarItem, Link} from "@nextui-org/react";
 import Image from "next/image";
+import Link from "next/link";
+import { Button } from "@/components/ui/button"
+import { buttonVariants } from "@/components/ui/button"
 
 export default function NavBar() {
   return (
-    <Navbar>
-      <NavbarBrand>
-        <Link href = "/">
-        <Image src='/logo.png' alt="Logo" width={200} height={100}/>
-        </Link>
-      </NavbarBrand>
-      <NavbarContent className="hidden sm:flex gap-4" justify="center">
-        <NavbarItem>
-          <Link href="#">
-            Market
-          </Link>
-        </NavbarItem>
-        <NavbarItem isActive>
-          <Link href="#" aria-current="page">
-            Trade
-          </Link>
-        </NavbarItem>
-      </NavbarContent>
-      <NavbarContent justify="end">
-        <NavbarItem className="hidden lg:flex">
-          <Link href="#">Login</Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link href="#">
-            Sign Up
-          </Link>
-        </NavbarItem>
-      </NavbarContent>
-    </Navbar>
+    <div className="navbar">
+		<Link className="left" href="/">
+			<Image src="/logo.png" alt="CirovBet" width={100} height={100} />
+		</Link>
+
+		<div className="center">
+			<Link className='nav-path' href="/market">Market</Link>
+			<Link className='nav-path' href="/trading">Trading</Link>
+		</div>
+
+		<div className="right">
+			<Button className="auth-btns" variant={"outline"}>Log In</Button>
+			<Button className="auth-btns" variant={"outline"}>Sign Up</Button>
+		</div>
+	</div>
   );
 }

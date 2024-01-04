@@ -25,3 +25,24 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+.navbar{
+  display: flex;
+  width: 100%;
+  height: 50px;
+  justify-content: space-between;
+  background-color: rgba(33, 129, 219, 0.799);
+  align-items: center;
+}
+.left{margin-top: 8px; transition: 0.2s linear;}
+.left:hover{filter: brightness(1.9); transition: 0.2s linear;}
+.nav-path{margin-right: 10px; margin-left: 10px; padding:10px; border: 2px solid transparent; border-radius: 8px; transition: 0.2s linear;}
+.nav-path:hover{color: black; border: 2px solid black;transition: 0.2s linear;}
+.right{margin-right: 10px; transition: 0.2s linear;}
+.auth-btns{margin-right: 15px;}
+.auth-btns:hover{color: black; border: 1px solid black;transition: 0.2s linear;}
+
+@media screen and (max-width: 520px) {
+  .nav-path{margin-right: 0px; margin-left: 0px; padding:5px; border: 1px solid transparent; border-radius: 8px; transition: 0.2s linear;}
+  .auth-btns{margin-right: 5px; width: 58px; height: 30px; font-size: small;}
+}
