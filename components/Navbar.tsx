@@ -17,8 +17,8 @@ export default function NavBar() {
 		</div>
 
 		<div className="right">
-			<Button className="auth-btns" variant={"outline"}>Log In</Button>
-			<Button className="auth-btns" variant={"outline"}>Sign Up</Button>
+			<Link className='nav-path' href="/signUp">Sign up</Link>
+			<Link className='nav-path' href="/logIn">Log in</Link>
 		</div>
 	</div>
   );

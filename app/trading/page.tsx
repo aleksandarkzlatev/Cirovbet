@@ -1,5 +1,7 @@
-const Page = () => {
-    return ( <h1>Trading</h1> );
+import React from 'react'
+
+export default function Trading() {
+  return (
+    <div>Trading</div>
+  )
 }
- 
-export default Page;
