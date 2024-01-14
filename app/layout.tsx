@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import NavBar from '@/components/Navbar'
 import { cn } from '@nextui-org/react'
+import Providers from '@/components/Providers'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -26,7 +27,7 @@ export default function RootLayout({
 
         <NavBar />
 
-        {children}
+        <Providers>{children}</Providers>
 
         </body>
     </html>

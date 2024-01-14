@@ -3,8 +3,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button"
 import { buttonVariants } from "@/components/ui/button"
+import { getSession } from "next-auth/react";
+import { getServerSession } from "next-auth";
+import Logout from "@/app/logout";
 
-export default function NavBar() {
+export default async function NavBar() {
+	const session = await getServerSession();
   return (
     <div className="navbar">
 		<Link className="left" href="/">
@@ -18,7 +22,12 @@ export default function NavBar() {
 
 		<div className="right">
 			<Link className='nav-path' href="/signUp">Sign up</Link>
+			{!!session &&
+			<Logout />
+			}
+			{!session &&
 			<Link className='nav-path' href="/logIn">Log in</Link>
+			}
 		</div>
 	</div>
   );
