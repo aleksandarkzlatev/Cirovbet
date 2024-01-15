@@ -3,16 +3,17 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react'
+import { useSession } from 'next-auth/react'
+import { set } from 'date-fns';
 
 export default function SignUp() {
-const router = useRouter();
+  const router = useRouter();
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-  
    /* const checkResponse = await fetch('/api/auth/checkUser', {
       method: 'POST',
       headers: {
@@ -32,6 +33,15 @@ const router = useRouter();
       return;
     }
   */
+    if(event.type === "button"){
+      const { data: session } = useSession()
+      if(session){
+        setUsername(session.user?.name || '');
+        setEmail(session.user?.email || '');
+        setPassword('');
+      }
+      
+    }
     const response = await fetch('/api/auth/signUp', {
       method: 'POST',
       body: JSON.stringify({

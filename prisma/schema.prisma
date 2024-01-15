@@ -15,4 +15,15 @@ model users {
   Username String @unique
   Email    String @unique
   Password String
+  items    items[]
+}
+
+model items{
+  id Int @id @default(autoincrement())
+  name String
+  price Int
+  description String
+  image String
+  userId Int
+  user users @relation(fields: [userId], references: [id])
 }

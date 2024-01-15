@@ -21,9 +21,14 @@ export default async function NavBar() {
 		</div>
 
 		<div className="right">
+			{!session &&
 			<Link className='nav-path' href="/signUp">Sign up</Link>
-			{!!session &&
+			}
+			{session &&
 			<Logout />
+			}
+			{session &&
+			<Link className='nav-path' href="/profile">Profile</Link>
 			}
 			{!session &&
 			<Link className='nav-path' href="/logIn">Log in</Link>

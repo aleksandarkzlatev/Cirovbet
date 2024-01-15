@@ -8,14 +8,13 @@ const prisma = new PrismaClient();
 
 export async function POST(request: Request) {
   try {
-    const { username, email, password } = await request.json()
-
-    const hashedPassword = await hash(password, 10);
+    const { Username, Email, Password } = await request.json()
+    const hashedPassword = await hash(Password, 10);
 
     const response = await prisma.users.create({
       data: {
-        Username: username,
-        Email: email,
+        Username: Username,
+        Email: Email,
         Password: hashedPassword,
       },
     })
