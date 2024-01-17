@@ -22,7 +22,7 @@ export default async function NavBar() {
 
 		<div className="right">
 			{!session &&
-			<Link className='nav-path' href="/signUp">Sign up</Link>
+			<Link className='nav-path' href="/api/auth/signin">Sign up</Link>
 			}
 			{session &&
 			<Logout />
