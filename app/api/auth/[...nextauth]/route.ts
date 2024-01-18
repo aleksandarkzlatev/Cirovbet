@@ -1,14 +1,13 @@
-import nextAuth from "next-auth";
+import { NextAuthOptions } from "next-auth";
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { compare } from "bcrypt";
-import { sql } from "@vercel/postgres";
-import { PrismaClient } from "@prisma/client";
 import GoogleProvider from "next-auth/providers/google";
 import db from "@/lib/db";
+import getServerSession  from "next-auth";
 
-const handler = NextAuth({
-    session: {
+export const authOptions : NextAuthOptions = ({
+  session: {
         strategy: "jwt",
     },
     providers: [
@@ -25,7 +24,8 @@ const handler = NextAuth({
                     Username: credentials?.Username,
                   },
                 });
-                if (user && user.Password) {
+                console.log(user && user.Password);
+                if (user !== null && user.Password) {
                   const passwordCorrect = await compare(credentials?.Password || "", user.Password);
                   if (passwordCorrect) {
                     return {
@@ -36,15 +36,21 @@ const handler = NextAuth({
                   }
                 }
                 else {
-                  await db.users.create({
-                    data: {
-                      Username: credentials?.Username || "",
-                      Email: credentials?.Email || "",
-                      Password: credentials?.Password || "",
-                    },
-                  });
+                  try {
+                    console.log(credentials);
+                    const user = await db.users.create({
+                      data: {
+                        Username: String(credentials?.Username || ""),
+                        Email: String(credentials?.Email || ""),
+                        Password: String(credentials?.Password || ""),
+                      },
+                    });
+                    return user;
+                  } catch (error) {
+                    console.error(error);
+                  }
                 }
-                return null;
+                return user;
               }
         }),
         GoogleProvider({
@@ -72,17 +78,19 @@ const handler = NextAuth({
             Email: token.email || '',
           },
         })
-
+      
         if (user && !dbUser) {
           token.id = user.id ? user.id.toString() : '' // Convert id to string
+          token.name = user.name || '' // Add this line
           return token
         }
-
+      
         return dbUser ? {
           id: dbUser.id.toString(), // Convert id to string
           Username: dbUser.Username,
           Email: dbUser.Email,
           Image: dbUser.Image || null,
+          name: dbUser.Username, // Add this line
         } : token
       },
       
@@ -92,4 +100,7 @@ const handler = NextAuth({
     },
 });
 
+const handler = NextAuth(authOptions)
 export {handler as GET, handler as POST}
+
+export const getAuthSession = () => getServerSession(authOptions);

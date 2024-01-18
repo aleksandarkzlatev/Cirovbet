@@ -24,7 +24,6 @@ export default function RootLayout({
     )}>
 
     <body className='min-h-screen antialiased'>
-
         <NavBar />
 
         <Providers>{children}</Providers>

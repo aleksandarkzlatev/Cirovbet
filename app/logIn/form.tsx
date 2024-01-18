@@ -15,7 +15,6 @@ export default function SignUp() {
    const response = await signIn('credentials', {
       Username: username,
       Password: password,
-      redirect: false,
    })
 
    console.log({response});
@@ -35,6 +34,7 @@ export default function SignUp() {
           type="text"
           value={username}
           onChange={e => setUsername(e.target.value)}
+          required
         />
         <h2>Password: </h2>
         <input
@@ -43,6 +43,7 @@ export default function SignUp() {
           type="password"
           value={password}
           onChange={e => setPassword(e.target.value)}
+          required
         />
         <button type="submit">Log in</button>
         <button type="button" onClick={() => signIn('google')}>Log in with Google</button>

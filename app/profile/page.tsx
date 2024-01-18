@@ -1,32 +1,26 @@
-'use client';
+// import React, { useEffect, useState } from 'react'
+import { getAuthSession } from '../api/auth/[...nextauth]/route';
 
-import React, { useEffect, useState } from 'react'
-import { useSession } from 'next-auth/react'
-
-export default function Profile() {
-  const { data: session } = useSession()
-  const [items, setItems] = useState([])
-
-  useEffect(() => {
-    if (session) {
-     // fetchUserItems(session.user?.email).then(setItems)
-    }
-  }, [session])
-
-  if (!session) {
-    return <div>Loading...</div>
-  }
-
+export default async function Profile() {
+  // const [items, setItems] = useState([])
+  const session = await getAuthSession();
+  console.log(session);
   return (
     <div>
-      <p>Name: {session.user?.name}</p>
-      <p>Email: {session.user?.email}</p>
-      <h2>Items:</h2>
+      {session ? (
+        <>
+        <p>Name: {session.user?.name}</p>
+        <p>Email: {session.user?.email}</p>
+        </>
+      ) : (
+        <p>Not signed in</p>
+      )}
+      {/* <h2>Items:</h2>
       <ul>
         {items.map((item, index) => (
           <li key={index}>{item}</li>
         ))}
-      </ul>
+      </ul> */}
     </div>
   )
 }
