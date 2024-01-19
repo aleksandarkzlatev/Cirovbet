@@ -16,6 +16,7 @@ model users {
   Email    String @unique
   Image    String @default("https://res.cloudinary.com/djxhcwowp/i")
   Password String
+  Balance  Int @default(0)
   items    items[]
   Account       Account[]
   Session       Session[]

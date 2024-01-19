@@ -1,27 +1,26 @@
 'use client';
 
-import { signIn } from 'next-auth/react';
+import { signIn, SignInResponse } from 'next-auth/react';
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 export default function SignUp() {
   const router = useRouter();
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [Username, setUsername] = useState('');
+  const [Password, setPassword] = useState('');
 
-  const handleSubmit = async (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-   const response = await signIn('credentials', {
-      Username: username,
-      Password: password,
-   })
-
-   console.log({response});
-   if (!response?.error) {
-    router.push('/');
-    router.refresh();
-  }
+  
+    const response = await signIn('credentials', {
+      Username: Username,
+      Password: Password,
+    })
+    
+    if (!response?.error) {
+      router.push('/');
+      router.refresh();
+    }
   };
 
   return (
@@ -32,7 +31,7 @@ export default function SignUp() {
           name="userName"
           className="border border-black text-black"
           type="text"
-          value={username}
+          value={Username}
           onChange={e => setUsername(e.target.value)}
           required
         />
@@ -41,7 +40,7 @@ export default function SignUp() {
           name="password"
           className="border border-black text-black"
           type="password"
-          value={password}
+          value={Password}
           onChange={e => setPassword(e.target.value)}
           required
         />
