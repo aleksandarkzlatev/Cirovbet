@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server'
 import React from 'react'
 import { hash } from 'bcrypt';
-import { sql } from '@vercel/postgres';
 import db from '@/lib/db';
 
 
@@ -17,7 +16,6 @@ export async function POST(request: Request) {
         Password: hashedPassword,
       },
     })
-    console.log(response)
   }
   catch (error) {
     console.log(error)

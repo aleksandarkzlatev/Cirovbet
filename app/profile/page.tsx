@@ -10,7 +10,6 @@ export default function Profile() {
   if (!session) {
     return <div>You are not signed in</div>;
   }
-  console.log(session);
   return (
     <div>
       <h1>Your Profile</h1>

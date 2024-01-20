@@ -2,17 +2,12 @@
 import { NextAuthOptions } from "next-auth";
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { compare } from "bcrypt";
 import GoogleProvider from "next-auth/providers/google";
 import db from "@/lib/db";
 import getServerSession  from "next-auth";
-import Providers from 'next-auth';
-import { JWT } from "next-auth/jwt";
-import {User, Account, Profile } from "next-auth";
-import { AdapterUser } from "next-auth/adapters";
-import { Session } from "next-auth";
+import { AuthOptions } from "next-auth";
 
-export const authOptions: NextAuthOptions = {
+export const authOptions: AuthOptions = {
   session: {
     strategy: "jwt",
   },
@@ -101,20 +96,19 @@ export const authOptions: NextAuthOptions = {
       const { token, user, account } = params;
       if (user) {
         if(account?.provider === 'google') {
-          token.id = user.id;
           token.Username = user.name;
           token.Email = user.email;
           token.Image = user.image;
-          token.provider = account.provider;
         }
         else{
-          token.id = user.id;
           token.Username = user.Username;
           token.Email = user.Email;
           token.Image = user.Image;
         }
+        token.id = user.id;
         token.items = user.items;
         token.Balance = user.Balance;
+        token.provider = account.provider;
       }
       return token;
     },
@@ -122,18 +116,17 @@ export const authOptions: NextAuthOptions = {
       const { session, token } = params;
       if (token) {
         if(token.provider === 'google') {
-          session.user.id = token.id;
           session.user.Username = token.name;
           session.user.Email = token.email;
-          session.user.Image = token.image;
-          session.user.provider = token.provider;
+          session.user.Image = token.image; 
         }
         else{
-          session.user.id = token.id;
           session.user.Username = token.Username;
           session.user.Email = token.Email;
           session.user.Image = token.Image;
         }
+        session.user.provider = token.provider;
+        session.user.id = token.id;
         session.user.items = token.items;
         session.user.Balance = token.Balance;
       }
