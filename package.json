@@ -21,14 +21,17 @@
     "mysql2": "^3.6.5",
     "next": "14.0.4",
     "next-auth": "^4.24.5",
+    "next-swagger-doc": "^0.4.0",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "swagger-ui-react": "^5.11.0"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
     "@types/node": "^20.10.7",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/swagger-ui-react": "^4.18.3",
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
     "eslint-config-next": "14.0.4",
