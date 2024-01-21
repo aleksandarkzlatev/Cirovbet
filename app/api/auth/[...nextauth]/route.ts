@@ -1,5 +1,4 @@
 
-import { NextAuthOptions } from "next-auth";
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
@@ -109,6 +108,7 @@ export const authOptions: AuthOptions = {
         token.items = user.items;
         token.Balance = user.Balance;
         token.provider = account.provider;
+        token.items = user.items;
       }
       return token;
     },
@@ -129,6 +129,13 @@ export const authOptions: AuthOptions = {
         session.user.id = token.id;
         session.user.items = token.items;
         session.user.Balance = token.Balance;
+        const dbUser = await db.users.findUnique({
+          where: { id: session.user.id },
+          include: { items: true },
+        });
+        if (dbUser) {
+          session.user.items = dbUser.items;
+        }
       }
       return session;
     },

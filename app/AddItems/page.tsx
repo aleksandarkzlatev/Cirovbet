@@ -11,6 +11,7 @@ export default function AddItem() {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
+    const [image, setImage] = useState('');
     const [error, setError] = useState(''); // Add this line to declare the 'error' state variable
   
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -30,6 +31,8 @@ export default function AddItem() {
           name: name,
           price: price,
           description: description,
+          image: image,
+          user: session?.user,
           }),
       });
       const data = await response.json();     
@@ -51,9 +54,13 @@ export default function AddItem() {
             <input type="text" className="border border-black text-black" value={description} onChange={(e) => setDescription(e.target.value)} required/>
           </h2>
           <h3>
-        Price:
-        <input type="text" className="border border-black text-black" value={price} onChange={(e) => setPrice(e.target.value)} required/>
-        </h3>
+          Price:
+          <input type="text" className="border border-black text-black" value={price} onChange={(e) => setPrice(e.target.value)} required/>
+          </h3>
+          <h4>
+          Image:
+          <input type="file" className="border border-black text-black" onChange={(e) => setImage(e.target.files?.[0]?.toString() || '')} required/>
+        </h4>
           <button type="submit">Add Item</button>
         </form>
       </div>
